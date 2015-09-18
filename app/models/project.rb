@@ -1,12 +1,8 @@
 class Project < ActiveRecord::Base
-  attr_accessor :tasks
+  has_many :tasks
 
-  def iteration_days
+  def self.velocity_length_in_days
     21
-  end
-
-  def tasks
-    @tasks ||= []
   end
 
   def incomplete_tasks
@@ -18,7 +14,7 @@ class Project < ActiveRecord::Base
   end
 
   def total_size
-    tasks.sum(&:size)
+    tasks.to_a.sum(&:size)
   end
 
   def remaining_size
@@ -26,11 +22,11 @@ class Project < ActiveRecord::Base
   end
 
   def completed_velocity
-    tasks.sum(&:points_toward_velocity)
+    tasks.to_a.sum(&:points_toward_velocity)
   end
 
   def current_rate
-    completed_velocity * 1.0 / iteration_days
+    completed_velocity * 1.0 / Project.velocity_length_in_days
   end
 
   def projected_days_remaining
