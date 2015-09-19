@@ -4,6 +4,7 @@ class CreatesProject
   def initialize(name: "", task_string: "")
     @name = name
     @task_string = task_string
+    @project = project
   end
 
   def build
@@ -21,6 +22,8 @@ class CreatesProject
   end
 
   def create
+    build
+    project.save
   end
 end
 

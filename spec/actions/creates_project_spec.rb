@@ -41,7 +41,7 @@ describe CreatesProject do
       let(:task_string) { "Start things:3\nEnd things:2" }
       it "saves projects and tasks" do
         creator.create
-        expect(creator.projects.tasks.size).to eq(2)
+        expect(creator.project.tasks.size).to eq(2)
         expect(creator.project).not_to be_a_new_record
       end
     end
